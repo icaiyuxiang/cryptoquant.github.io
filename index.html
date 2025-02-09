@@ -1,400 +1,534 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto - 网上投资理财好帮手</title>
-    <style>
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-        .modal-login {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #FFFFFF;
-            padding: 20px;
-            border: 2px solid #000080;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
-            z-index: 1001;
-            width: 300px;
-        }
-        .modal-title {
-            background: linear-gradient(to bottom, #000080, #0000A0);
-            color: white;
-            padding: 5px 10px;
-            margin: -20px -20px 20px -20px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .close-button {
-            position: absolute;
-            right: 5px;
-            top: 3px;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        body {
-            font-family: "宋体", SimSun, "Arial";
-            background-color: #E6E6E6;
-            margin: 0;
-            padding: 10px;
-        }
-        .container {
-            width: 90%;
-            max-width: 780px;
-            margin: 0 auto;
-            border: 2px solid #000080;
-            background: #FFFFFF;
-            box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
-        }
-        .header {
-            background: linear-gradient(to bottom, #000080, #0000A0);
-            color: white;
-            padding: 15px 10px;
-            text-align: center;
-            border-bottom: 3px solid #000066;
-            position: relative;
-        }
-        .login-button {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            background: linear-gradient(to bottom, #FFFFFF, #E0E0E0);
-            border: 1px solid #000066;
-            color: #000080;
-            padding: 3px 12px;
-            cursor: pointer;
-            font-family: "宋体", SimSun;
-            border-radius: 3px;
-        }
-        .login-button:hover {
-            background: linear-gradient(to bottom, #E0E0E0, #FFFFFF);
-        }
-        .site-title {
-            font-size: 24px;
-            margin: 0;
-            padding: 0;
-            text-shadow: 2px 2px #000;
-        }
-        .site-subtitle {
-            font-size: 14px;
-            margin-top: 8px;
-            color: #FFFFFF;
-            text-shadow: 1px 1px #000;
-        }
-        .navigation {
-            background: linear-gradient(to bottom, #C0C0E0, #A0A0D0);
-            padding: 6px;
-            border-bottom: 2px solid #000080;
-            text-align: center;
-        }
-        .navigation a {
-            color: #000080;
-            text-decoration: none;
-            margin: 0 8px;
-            font-weight: bold;
-            display: inline-block;
-            padding: 3px 12px;
-            background: linear-gradient(to bottom, #FFFFFF, #E0E0E0);
-            border: 1px solid #666;
-            border-radius: 3px;
-        }
-        .navigation a:hover {
-            background: linear-gradient(to bottom, #E0E0E0, #FFFFFF);
-        }
-        .content {
-            padding: 15px;
-            background: #FFFFFF;
-        }
-        .login-panel {
-            display: none;
-            border: 1px solid #808080;
-            margin: 10px 0;
-            padding: 15px;
-            background: linear-gradient(to bottom, #FFFFFF, #F5F5F5);
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: inline-block;
-            width: 70px;
-            color: #000080;
-            font-weight: bold;
-        }
-        .form-group input {
-            width: 200px;
-            padding: 5px;
-            border: 1px solid #808080;
-            font-family: "宋体", SimSun;
-        }
-        .login-submit {
-            background: linear-gradient(to bottom, #000080, #0000A0);
-            color: white;
-            border: 1px solid #000066;
-            padding: 5px 20px;
-            cursor: pointer;
-            font-family: "宋体", SimSun;
-            font-size: 14px;
-            margin-right: 10px;
-        }
-        .login-submit:hover {
-            background: linear-gradient(to bottom, #0000A0, #000080);
-        }
-        .news-box {
-            border: 1px solid #808080;
-            margin: 10px 0;
-            padding: 15px;
-            background: linear-gradient(to bottom, #FFFFFF, #F5F5F5);
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-        }
-        .footer {
-            background: linear-gradient(to bottom, #0000A0, #000080);
-            color: white;
-            padding: 8px;
-            text-align: center;
-            font-size: 12px;
-            border-top: 2px solid #000066;
-        }
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 1px;
-        }
-        td {
-            border: 1px solid #A0A0A0;
-            padding: 5px;
-            background: #FFFFFF;
-        }
-        .blink {
-            animation: blink 1s infinite;
-            color: #FF0000;
-            font-weight: bold;
-        }
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        .construction {
-            text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(to bottom, #F0F8FF, #E6E6FA);
-            display: none;
-            border: 1px solid #000080;
-        }
-        .notice-board {
-            border: 1px solid #808080;
-            margin-bottom: 15px;
-            background: linear-gradient(to bottom, #F0F8FF, #E6E6FA);
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-        }
-        .notice-title {
-            background: linear-gradient(to bottom, #000080, #0000A0);
-            color: white;
-            padding: 5px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .notice-content {
-            padding: 10px;
-            text-align: center;
-        }
-        .quick-links {
-            border: 1px solid #808080;
-            background: linear-gradient(to bottom, #F0F8FF, #E6E6FA);
-            margin-top: 10px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-        }
-        .quick-links-title {
-            background: linear-gradient(to bottom, #000080, #0000A0);
-            color: white;
-            padding: 5px;
-            text-align: center;
-        }
-        .quick-links-content {
-            padding: 8px;
-        }
-        .quick-links-content a {
-            display: block;
-            color: #000080;
-            text-decoration: none;
-            padding: 3px 0;
-            margin: 2px 0;
-        }
-        .marquee-container {
-            border: 1px solid #A0A0A0;
-            background: #FFFFF0;
-            padding: 5px;
-            margin-bottom: 10px;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-        }
-        @media (max-width: 600px) {
-            .container {
-                width: 100%;
-                border: none;
-                box-shadow: none;
-            }
-            table td {
-                display: block;
-                width: auto !important;
-            }
-            .navigation a {
-                display: block;
-                margin: 5px 0;
-            }
-            .form-group label {
-                display: block;
-                width: auto;
-                margin-bottom: 5px;
-            }
-            .form-group input {
-                width: 100%;
-            }
-        }
-    </style>
-    <script>
-        function showConstruction(event) {
-            event.preventDefault();
-            const content = document.querySelector('.main-content');
-            const construction = document.querySelector('.construction');
-            content.style.display = 'none';
-            construction.style.display = 'block';
-            setTimeout(() => {
-                content.style.display = 'block';
-                construction.style.display = 'none';
-            }, 2000);
-        }
-
-        function showLogin() {
-            document.querySelector('.modal-overlay').style.display = 'block';
-            document.querySelector('.modal-login').style.display = 'block';
-        }
-        
-        function closeLogin() {
-            document.querySelector('.modal-overlay').style.display = 'none';
-            document.querySelector('.modal-login').style.display = 'none';
-        }
-
-        // 点击遮罩层也关闭登录框
-        window.onclick = function(event) {
-            if (event.target === document.querySelector('.modal-overlay')) {
-                closeLogin();
-            }
-        }
-        function handleLogin(event) {
-        event.preventDefault();  // 阻止表单默认提交
-        window.location.href = 'dashboard.html';  // 直接跳转到 dashboard.html
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoQuant - 网上投资理财好帮手</title>
+<style>
+* {
+  box-sizing: border-box;
 }
-    </script>
+
+body {
+  font-family: "MS Sans Serif", "宋体", SimSun, "Arial";
+  background: #008080 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABAD2Mw9fuRdIeAAAAABJRU5ErkJggg==");
+  margin: 0;
+  padding: 10px;
+}
+
+.container {
+  width: 90%;
+  max-width: 780px;
+  margin: 0 auto;
+  border: 2px outset #c0c0c0;
+  background: #d4d0c8;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+}
+
+.header {
+  background: #000080;
+  color: white;
+  padding: 15px 10px;
+  text-align: center;
+  border: 2px outset #0000a0;
+  position: relative;
+}
+
+.site-title {
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+  font-family: "MS Sans Serif", "宋体";
+  text-shadow: 2px 2px #000;
+  color: white;
+}
+
+.site-subtitle {
+  font-size: 14px;
+  margin-top: 8px;
+  animation: rainbow 6s infinite;
+  font-family: "MS Sans Serif", "宋体";
+  text-shadow: 1px 1px #000;
+  color: #ffff00;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.blink {
+  animation: blink 1s infinite;
+  color: red;
+}
+
+@keyframes rainbow {
+  0% { color: #ff0000; }
+  17% { color: #ff00ff; }
+  33% { color: #0000ff; }
+  50% { color: #00ffff; }
+  67% { color: #00ff00; }
+  83% { color: #ffff00; }
+  100% { color: #ff0000; }
+}
+
+.navigation {
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 6px 15px;
+  gap: 5px;
+  margin: 0;
+}
+
+.navigation a {
+  color: #000080;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 3px 12px;
+  background: #d4d0c8;
+  border: 2px outset #ffffff;
+  white-space: nowrap;
+  flex: 1;
+  text-align: center;
+  min-width: 0;
+  max-width: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation a:hover {
+  background: #e0e0e0;
+}
+
+.navigation a:active {
+  border: 2px inset #ffffff;
+  padding: 4px 11px 2px 13px;
+}
+
+.content {
+  padding: 15px;
+  background: #d4d0c8;
+}
+
+.content p {
+  margin: 10px 0;
+  text-align: justify;
+  line-height: 1.5;
+}
+
+.content ul {
+  padding-left: 20px;
+}
+
+.content ul li {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.news-box {
+  border: 2px inset #ffffff;
+  margin: 10px 0;
+  padding: 15px;
+  background: #ffffff;
+}
+
+.notice-board {
+  border: 2px outset #ffffff;
+  background: #d4d0c8;
+}
+
+.notice-title {
+  background: #000080;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px outset #ffffff;
+}
+
+.notice-content {
+  padding: 10px;
+  background: #ffffff;
+  border: 2px inset #ffffff;
+}
+
+.quick-links {
+  border: 2px outset #ffffff;
+  background: #d4d0c8;
+  margin-top: 10px;
+}
+
+.quick-links-title {
+  background: #000080;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  border-bottom: 2px outset #ffffff;
+}
+
+.quick-links-content {
+  padding: 8px;
+  background: #ffffff;
+  border: 2px inset #ffffff;
+}
+
+.quick-links-content a {
+  display: block;
+  color: #000080;
+  text-decoration: none;
+  padding: 3px 0;
+  margin: 2px 0;
+}
+
+.quick-links-content a:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-login {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #d4d0c8;
+  padding: 20px;
+  border: 2px outset #ffffff;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+  z-index: 1001;
+  width: 320px;
+}
+
+.modal-title {
+  background: #000080;
+  color: white;
+  padding: 8px 10px;
+  margin: -20px -20px 20px -20px;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px outset #ffffff;
+}
+
+.close-button {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  background: #d4d0c8;
+  border: 2px outset #ffffff;
+  color: #000;
+}
+
+.close-button:active {
+  border: 2px inset #ffffff;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.form-group label {
+  width: 80px;
+  color: #000080;
+  font-weight: bold;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.form-group input {
+  flex: 1;
+  padding: 5px;
+  border: 2px inset #ffffff;
+  background: white;
+  font-family: "MS Sans Serif", "宋体";
+  height: 28px;
+}
+
+.construction {
+  text-align: center;
+  padding: 50px 20px;
+  background: #d4d0c8;
+  display: none;
+  border: 2px outset #ffffff;
+}
+
+.marquee-container {
+  border: 2px inset #ffffff;
+  background: #ffffff;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.footer {
+  background: #000080;
+  color: #ffffff;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+  border-top: 2px outset #0000a0;
+}
+
+button {
+  background: #d4d0c8;
+  border: 2px outset #ffffff;
+  padding: 6px 15px;
+  font-family: "MS Sans Serif", "宋体";
+  color: #000000;
+  cursor: pointer;
+  min-width: 80px;
+  margin: 0 5px;
+}
+
+button:active {
+  border: 2px inset #ffffff;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, #000080 50%, transparent 50%);
+  background-size: 4px 2px;
+  margin: 10px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+
+td {
+  border: 2px inset #ffffff;
+  padding: 5px;
+  background: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .navigation {
+    justify-content: center;
+    padding: 6px;
+  }
+  
+  .navigation a {
+    flex: 0 1 calc(50% - 5px);
+    min-width: 0;
+    font-size: 14px;
+    padding: 3px 8px;
+  }
+
+  body {
+    padding: 5px;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .site-title {
+    font-size: 20px;
+  }
+
+  .site-subtitle {
+    font-size: 12px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  table {
+    display: block;
+  }
+
+  tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+  td {
+    width: 100% !important;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .modal-login {
+    width: 90%;
+    max-width: 320px;
+  }
+
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .form-group input {
+    width: 100%;
+  }
+
+  .marquee-container {
+    font-size: 14px;
+  }
+}
+</style>
+
+<script>
+function showConstruction(event) {
+  event.preventDefault();
+  const content = document.querySelector('.main-content');
+  const construction = document.querySelector('.construction');
+  content.style.display = 'none';
+  construction.style.display = 'block';
+  setTimeout(() => {
+    content.style.display = 'block';
+    construction.style.display = 'none';
+  }, 2000);
+}
+
+function showLogin() {
+  document.querySelector('.modal-overlay').style.display = 'block';
+  document.querySelector('.modal-login').style.display = 'block';
+}
+
+function closeLogin() {
+  document.querySelector('.modal-overlay').style.display = 'none';
+  document.querySelector('.modal-login').style.display = 'none';
+}
+
+window.onclick = function(event) {
+  if (event.target === document.querySelector('.modal-overlay')) {
+    closeLogin();
+  }
+}
+
+function handleLogin(event) {
+  event.preventDefault();
+  window.location.href = 'dashboard.html';
+}
+</script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            
-            <h1 class="site-title">Crypto 投资在线</h1>
-            <div class="site-subtitle">您在Web3世界中财富增长的好帮手</div>
-        </div>
-        
-        <div class="navigation">
-            <a href="#" onclick="showConstruction(event)">网站首页</a> |
-            <a href="#" onclick="showConstruction(event)">投资导航</a> |
-            <a href="#" onclick="showConstruction(event)">市场行情</a> |
-            <a href="#" onclick="showConstruction(event)">实时数据</a> |
-            <a href="#" onclick="showConstruction(event)">关于本站</a>
-        </div>
+<div class="container">
+  <div class="header">
+    <h1 class="site-title">CryptoQuant 投资在线</h1>
+    <div class="site-subtitle">☆ 您在Web3世界中财富增长的好帮手 ☆</div>
+  </div>
 
-        <div class="construction">
-            <h2 style="color: #000080;">正在建设中</h2>
-            <p>本栏目正在建设中，请稍后访问...</p>
+  <div class="navigation">
+    <a href="#" onclick="showConstruction(event)">☆网站首页☆</a>
+    <a href="#" onclick="showConstruction(event)">☆投资导航☆</a>
+    <a href="#" onclick="showConstruction(event)">☆市场行情☆</a>
+    <a href="#" onclick="showConstruction(event)">☆实时数据☆</a>
+    <a href="#" onclick="showConstruction(event)">☆关于本站☆</a>
+  </div>
+
+  <div class="construction">
+    <h2 style="color: #000080;">正在建设中</h2>
+    <p>本栏目正在建设中，请稍后访问...</p>
+  </div>
+
+  <div class="content main-content">
+    <div class="modal-overlay"></div>
+    <div class="modal-login">
+      <div class="modal-title">
+        ★ 用户登录 ★
+        <span class="close-button" onclick="closeLogin()">×</span>
+      </div>
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>用户名：</label>
+          <input type="text" name="username" required>
         </div>
-
-        <div class="content main-content">
-            <!-- 登录弹窗 -->
-            <div class="modal-overlay"></div>
-            <div class="modal-login">
-                <div class="modal-title">
-                    用户登录
-                    <span class="close-button" onclick="closeLogin()">×</span>
-                </div>
-                <form onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label>用户名：</label>
-                        <input type="text" name="username">
-                    </div>
-                    <div class="form-group">
-                        <label>密　码：</label>
-                        <input type="password" name="password">
-                    </div>
-                    <div style="text-align: center; margin-top: 10px;">
-                        <button type="submit" class="login-submit">登 录</button>
-                        <button type="button" class="login-submit">注 册</button>
-                    </div>
-                </form>
-            </div>
-            
-
-            <div class="marquee-container">
-                <marquee behavior="scroll" direction="left" style="color: red;">
-                    热点：比特币突破历史新高！数字货币市场迎来新机遇！|| 投资有风险，入市需谨慎！|| 关注本站，把握投资先机！
-                </marquee>
-            </div>
-
-            <table>
-                <tr>
-                    <td width="70%">
-                        <div class="news-box">
-                            <h2 style="color: #000080; margin-top: 0;">投资有道 财富无限</h2>
-                            <p>尊敬的投资者：</p>
-                            <p>　　欢迎您访问Crypto投资在线！本站为您提供：</p>
-                            <ul>
-                                <li>数字货币市场独家分析</li>
-                                <li>新手投资爆仓指南</li>
-                                <li>自动交易监控面板</li>
-                            </ul>
-                            <p style="color: #000080; text-align: center; border-top: 1px dashed #808080; padding-top: 10px;">
-                                点击收藏本站，把握投资先机！
-                            </p>
-                        </div>
-                    </td>
-                    <td width="30%" style="vertical-align: top;">
-                        <div class="notice-board">
-                            <div class="notice-title">网站公告</div>
-                            <div class="notice-content">
-                                <p class="blink">网站改版升级</p>
-                                <p>敬请期待更多功能！</p>
-                            </div>
-                        </div>
-                        <div class="quick-links">
-                            <div class="quick-links-title">快速通道</div>
-                            <div class="quick-links-content">
-                                <a href="#" onclick="showLogin(); return false;">→ 用户登录</a>
-                                <a href="#" onclick="showConstruction(event)">→ 今日行情</a>
-                                <a href="#" onclick="showConstruction(event)">→ 市场分析</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+        <div class="form-group">
+          <label>密　码：</label>
+          <input type="password" name="password" required>
         </div>
-
-        <div class="footer">
-            Copyright © 2025 Crypto All Rights Reserved.
-            <br>
-            建议使用IE5.0浏览器 最佳分辨率800*600
+        <div style="text-align: center; margin-top: 20px;">
+          <button type="submit">登 录</button>
+          <button type="button">注 册</button>
         </div>
+      </form>
     </div>
+
+    <div class="marquee-container">
+      <marquee behavior="scroll" direction="left" style="color: red;">
+        ★★★ 热点：比特币突破历史新高！数字货币市场迎来新机遇！★★★ || 投资有风险，入市需谨慎！|| ☆关注本站，把握投资先机！☆
+      </marquee>
+    </div>
+
+    <table>
+      <tr>
+        <td style="width: 70%; padding-right: 10px;">
+          <div class="news-box">
+            <h2 style="color: #000080; margin-top: 0; text-align: center;">★ 投资有道 财富无限 ★</h2>
+            <hr>
+            <p>尊敬的投资者：</p>
+            <p>　　欢迎您访问CryptoQuant投资在线！本站为您提供：</p>
+            <ul>
+              <li>数字货币市场独家分析</li>
+              <li>新手投资爆仓指南</li>
+              <li>智能自动化交易监控系统</li>
+            </ul>
+            <hr>
+            <p style="color: #000080; text-align: center;">
+              ★ 点击收藏本站，把握投资先机！★
+            </p>
+          </div>
+        </td>
+        <td style="width: 30%; vertical-align: top;">
+          <div class="notice-board">
+            <div class="notice-title">网站公告</div>
+            <div class="notice-content" style="text-align: center;">
+              <p style="text-align: center; font-weight: bold;" class="blink">网站改版升级</p>
+              <p style="text-align: center;" class="blink">敬请期待更多功能！</p>
+            </div>
+          </div>
+          <div class="quick-links">
+            <div class="quick-links-title">★ 快速通道 ★</div>
+            <div class="quick-links-content">
+              <a href="#" onclick="showLogin(); return false;">▶ 用户登录</a>
+              <a href="#" onclick="showConstruction(event)">▶ 今日行情</a>
+              <a href="#" onclick="showConstruction(event)">▶ 市场分析</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="footer">
+    Copyright © 2025 CryptoQuant.Art All Rights Reserved.
+    <br>
+    建议使用IE5.0浏览器 最佳分辨率800*600
+  </div>
+</div>
 </body>
 </html>
