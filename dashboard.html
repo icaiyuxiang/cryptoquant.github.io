@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交易面板 - Crypto投资在线</title>
+    <style>
+        body {
+            font-family: "宋体", SimSun, "Arial";
+            background-color: #E6E6E6;
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            width: 90%;
+            max-width: 780px;
+            margin: 0 auto;
+            border: 2px solid #000080;
+            background: #FFFFFF;
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+        }
+        .header {
+            background: linear-gradient(to bottom, #000080, #0000A0);
+            color: white;
+            padding: 15px 10px;
+            text-align: center;
+            border-bottom: 3px solid #000066;
+        }
+        .site-title {
+            font-size: 24px;
+            margin: 0;
+            padding: 0;
+            text-shadow: 2px 2px #000;
+        }
+        .site-subtitle {
+            font-size: 14px;
+            margin-top: 8px;
+            color: #FFFFFF;
+            text-shadow: 1px 1px #000;
+        }
+        .content {
+            padding: 15px;
+            background: #FFFFFF;
+        }
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .stat-box {
+            border: 1px solid #808080;
+            background: linear-gradient(to bottom, #F0F8FF, #E6E6FA);
+            padding: 10px;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        .stat-title {
+            color: #000080;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .stat-value {
+            font-size: 18px;
+            color: #FF0000;
+            font-weight: bold;
+        }
+        .positions-box {
+            border: 1px solid #808080;
+            margin: 15px 0;
+            background: linear-gradient(to bottom, #FFFFFF, #F5F5F5);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        .positions-title {
+            background: linear-gradient(to bottom, #000080, #0000A0);
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+        }
+        .positions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+        .positions-table th {
+            background: linear-gradient(to bottom, #C0C0E0, #A0A0D0);
+            color: #000080;
+            padding: 5px;
+            border: 1px solid #808080;
+            font-size: 14px;
+        }
+        .positions-table td {
+            padding: 5px;
+            border: 1px solid #808080;
+            text-align: center;
+            background: #FFFFFF;
+            font-size: 14px;
+        }
+        .profit {
+            color: #FF0000;
+            font-weight: bold;
+        }
+        .loss {
+            color: #008000;
+            font-weight: bold;
+        }
+        .footer {
+            background: linear-gradient(to bottom, #0000A0, #000080);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-size: 12px;
+            border-top: 2px solid #000066;
+        }
+        .navigation {
+            background: linear-gradient(to bottom, #C0C0E0, #A0A0D0);
+            padding: 6px;
+            border-bottom: 2px solid #000080;
+            text-align: center;
+        }
+        .navigation a {
+            color: #000080;
+            text-decoration: none;
+            margin: 0 8px;
+            font-weight: bold;
+            display: inline-block;
+            padding: 3px 12px;
+            background: linear-gradient(to bottom, #FFFFFF, #E0E0E0);
+            border: 1px solid #666;
+            border-radius: 3px;
+        }
+        .navigation a:hover {
+            background: linear-gradient(to bottom, #E0E0E0, #FFFFFF);
+        }
+        .empty-position {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+                border: none;
+                box-shadow: none;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            .positions-table {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="site-title">交易面板</h1>
+            <div class="site-subtitle">Crypto投资在线 - 您的理财好帮手</div>
+        </div>
+
+        <div class="navigation">
+            <a href="#">显示CSV</a> |
+            <a href="#">历史交易记录</a> |
+            <a href="#">API设置</a> |
+            <a href="#">风控中心</a> |
+            <a href="#">退出系统</a>
+        </div>
+
+        <div class="content">
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-title">账户余额</div>
+                    <div class="stat-value">$128,456.78 USDT</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-title">今日收益</div>
+                    <div class="stat-value">+$2,345.67 USDT</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-title">下次平仓时间</div>
+                    <div class="stat-value" style="color: #000080;">15:30:00</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-title">下次开仓时间</div>
+                    <div class="stat-value" style="color: #000080;">16:00:00</div>
+                </div>
+            </div>
+
+            <div class="positions-box">
+                <div class="positions-title">现有持仓（5/5）</div>
+                <table class="positions-table">
+                    <thead>
+                        <tr>
+                            <th>币种</th>
+                            <th>方向</th>
+                            <th>数量</th>
+                            <th>开仓价</th>
+                            <th>当前价</th>
+                            <th>盈亏</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BTC</td>
+                            <td style="color: #FF0000;">多</td>
+                            <td>0.5</td>
+                            <td>42,350.00</td>
+                            <td>43,150.00</td>
+                            <td class="profit">+$2,350.00 USDT</td>
+                        </tr>
+                        <tr>
+                            <td>ETH</td>
+                            <td style="color: #008000;">空</td>
+                            <td>5.0</td>
+                            <td>2,280.00</td>
+                            <td>2,260.00</td>
+                            <td class="profit">+$1,520.00 USDT</td>
+                        </tr>
+                        <tr>
+                            <td>SOL</td>
+                            <td style="color: #FF0000;">多</td>
+                            <td>100</td>
+                            <td>98.50</td>
+                            <td>96.80</td>
+                            <td class="loss">-$170.00 USDT</td>
+                        </tr>
+                        <tr>
+                            <td>DOGE</td>
+                            <td style="color: #FF0000;">多</td>
+                            <td>10000</td>
+                            <td>0.085</td>
+                            <td>0.088</td>
+                            <td class="profit">+$300.00 USDT</td>
+                        </tr>
+                        <tr>
+                            <td>XRP</td>
+                            <td style="color: #008000;">空</td>
+                            <td>2000</td>
+                            <td>0.56</td>
+                            <td>0.54</td>
+                            <td class="profit">+$400.00 USDT</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            Copyright © 2000 CryptoQuant All Rights Reserved.
+            <br>
+            建议使用IE5.0浏览器 最佳分辨率800*600
+        </div>
+    </div>
+</body>
+</html>
